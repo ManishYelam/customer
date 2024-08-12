@@ -1,25 +1,20 @@
 import React from 'react';
 import MyCustomers from './MyCustomers';
-// import Allotments from './Allotments';
-// import PaymentHistory from './PaymentHistory';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 
 function MainSection() {
   return (
-    <Container fluid className="p-3" style={{ flex: 1 }}>
+    <Container fluid className="p-4">
       <Row className="mb-4">
         <Col>
-          <MyCustomers />
-        </Col>
-      </Row>
-      <Row className="mb-4">
-        <Col>
-          {/* <Allotments /> */}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {/* <PaymentHistory /> */}
+          <Card className="shadow-sm">
+            <Card.Header as="h4" className="bg-primary text-white">
+              My Customers
+            </Card.Header>
+            <Card.Body>
+              <MyCustomers />
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>

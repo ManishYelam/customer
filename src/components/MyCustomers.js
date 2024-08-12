@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import AllotmentList from './AllotmentList';
 import CustomerForm from './CustomerForm';
 import CustomerSearch from './CustomerSearch';
+import Pagination from './PaginationComponent'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MyCustomers = () => {
   const [customers, setCustomers] = useState([]);
@@ -9,13 +11,15 @@ const MyCustomers = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [editingCustomer, setEditingCustomer] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [customersPerPage] = useState(4); 
 
   useEffect(() => {
     fetch('/data/mockData.json')
       .then(response => response.json())
       .then(data => {
         setCustomers(data.customers);
-        setFilteredCustomers(data.customers); // Initialize filteredCustomers
+        setFilteredCustomers(data.customers);
       })
       .catch(error => console.error('Error fetching customers:', error));
   }, []);
@@ -26,7 +30,7 @@ const MyCustomers = () => {
 
   const handleAddCustomer = (newCustomer) => {
     setCustomers([...customers, newCustomer]);
-    setFilteredCustomers([...customers, newCustomer]); // Update filteredCustomers
+    setFilteredCustomers([...customers, newCustomer]);
     setShowForm(false);
   };
 
@@ -35,14 +39,14 @@ const MyCustomers = () => {
       customer.id === updatedCustomer.id ? updatedCustomer : customer
     );
     setCustomers(updatedCustomers);
-    setFilteredCustomers(updatedCustomers); // Update filteredCustomers
+    setFilteredCustomers(updatedCustomers);
     setEditingCustomer(null);
   };
 
   const handleDeleteCustomer = (id) => {
     const updatedCustomers = customers.filter(customer => customer.id !== id);
     setCustomers(updatedCustomers);
-    setFilteredCustomers(updatedCustomers); // Update filteredCustomers
+    setFilteredCustomers(updatedCustomers); 
   };
 
   const handleCreateClick = () => {
@@ -61,26 +65,40 @@ const MyCustomers = () => {
       );
       setFilteredCustomers(filtered);
     } else {
-      setFilteredCustomers(customers); // Show all customers if search is cleared
+      setFilteredCustomers(customers); 
     }
+    setCurrentPage(1); 
   };
 
+  const indexOfLastCustomer = currentPage * customersPerPage;
+  const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
+  const currentCustomers = filteredCustomers.slice(indexOfFirstCustomer, indexOfLastCustomer);
+
+  const totalPages = Math.ceil(filteredCustomers.length / customersPerPage);
+
   return (
-    <div>
-      <h2>Customers</h2>
-      <button className="btn btn-primary mb-3" onClick={handleCreateClick}>
-        Create Customer
-      </button>
+    <div className="container mt-4">
+      {/* <h2 className="mb-4">Customers</h2> */}
+      
+      <div className="d-flex justify-content-between mb-3">
+        <CustomerSearch onSearch={handleSearch} />
+        <button className="btn btn-primary" onClick={handleCreateClick}>
+          <i className="fas fa-plus"></i> Create Customer
+        </button>
+      </div>
+      
       {showForm && (
-        <CustomerForm 
-          onAddCustomer={handleAddCustomer}
-          onUpdateCustomer={handleUpdateCustomer}
-          editingCustomer={editingCustomer}
-          setEditingCustomer={setEditingCustomer}
-        />
+        <div className="mb-4">
+          <CustomerForm 
+            onAddCustomer={handleAddCustomer}
+            onUpdateCustomer={handleUpdateCustomer}
+            editingCustomer={editingCustomer}
+            setEditingCustomer={setEditingCustomer}
+          />
+        </div>
       )}
-      <CustomerSearch onSearch={handleSearch} />
-      <table className="table">
+      
+      <table className="table table-striped table-bordered">
         <thead>
           <tr>
             <th>ID</th>
@@ -96,7 +114,7 @@ const MyCustomers = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredCustomers.map(customer => (
+          {currentCustomers.map(customer => (
             <tr key={customer.id}>
               <td>{customer.id}</td>
               <td>{customer.firstName}</td>
@@ -108,15 +126,33 @@ const MyCustomers = () => {
               <td>{customer.landline}</td>
               <td>{customer.email}</td>
               <td>
-                <button className="btn btn-primary" onClick={() => handleSelectCustomer(customer)}>View Allotments</button>
-                <button className="btn btn-warning" onClick={() => { setEditingCustomer(customer); setShowForm(true); }}>Edit</button>
-                <button className="btn btn-danger" onClick={() => handleDeleteCustomer(customer.id)}>Delete</button>
+              <button className="btn btn-info btn-sm me-2" onClick={() => handleSelectCustomer(customer)}>
+              <i className="fas fa-eye"></i>
+              </button>
+              <button className="btn btn-warning btn-sm me-2" onClick={() => { setEditingCustomer(customer); setShowForm(true); }}>
+                  <i className="fas fa-edit"></i>
+              </button>
+              <button className="btn btn-danger btn-sm" onClick={() => handleDeleteCustomer(customer.id)}>
+                  <i className="fas fa-trash"></i>
+              </button>
+
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {selectedCustomer && <AllotmentList allotments={selectedCustomer.allotments} />}
+      
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
+      
+      {selectedCustomer && (
+        <div className="mt-4">
+          <AllotmentList allotments={selectedCustomer.allotments} />
+        </div>
+      )}
     </div>
   );
 };

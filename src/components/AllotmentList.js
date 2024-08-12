@@ -1,48 +1,64 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
+import CreateAllotment from './CreateAllotment';
 import PaymentList from './PaymentList';
+import Pagination from './PaginationComponent'; // Ensure you have a Pagination component
+import AllotmentSearch from './AllotmentSearch'; // Import the search component
+import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is included
 
 const AllotmentList = ({ allotments }) => {
   const [selectedAllotment, setSelectedAllotment] = useState(null);
-  const [allotmentsState, setAllotments] = useState(allotments); // Initialize the state here
-  const [newAllotment, setNewAllotment] = useState({
-    project: '',
-    building: '',
-    doorNumber: '',
-    carpetArea: '',
-    sellableArea: '',
-    parkingType: '',
-    activeStatus: ''
-  });
+  const [allotmentsState, setAllotments] = useState(allotments);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleSelectAllotment = (allotment) => {
     setSelectedAllotment(allotment);
   };
 
-  const handleAddAllotment = () => {
-    const newId = allotmentsState.length + 1;
-    setAllotments([
-      ...allotmentsState,
-      { ...newAllotment, id: newId }
-    ]);
-    setNewAllotment({
-      project: '',
-      building: '',
-      doorNumber: '',
-      carpetArea: '',
-      sellableArea: '',
-      parkingType: '',
-      activeStatus: ''
-    });
+  const handleAddAllotment = (newAllotment) => {
+    const newId = allotmentsState.length ? allotmentsState[allotmentsState.length - 1].id + 1 : 1;
+    setAllotments([...allotmentsState, { ...newAllotment, id: newId }]);
   };
 
   const handleDeleteAllotment = (id) => {
     setAllotments(allotmentsState.filter(allotment => allotment.id !== id));
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setCurrentPage(1); // Reset to the first page on search
+  };
+
+  // Filter allotments based on search query
+  const filteredAllotments = allotmentsState.filter(allotment =>
+    allotment.project.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    allotment.building.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    allotment.doorNumber.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Calculate the index of the first and last item for the current page
+  const indexOfLastAllotment = currentPage * itemsPerPage;
+  const indexOfFirstAllotment = indexOfLastAllotment - itemsPerPage;
+  const currentAllotments = filteredAllotments.slice(indexOfFirstAllotment, indexOfLastAllotment);
+
+  // Calculate total number of pages
+  const totalPages = Math.ceil(filteredAllotments.length / itemsPerPage);
+
   return (
-    <div>
-      <h2>Allotments</h2>
-      <table className="table">
+    <div className="container mt-4">
+      <h2 className="mb-4">Allotments</h2>
+
+      {/* Add the search component */}
+      <AllotmentSearch onSearch={handleSearch} />
+
+      {/* <div className="mb-3">
+        <CreateAllotment onAddAllotment={handleAddAllotment} />
+      </div> */}
+
+      <table className="table table-striped table-bordered">
         <thead>
           <tr>
             <th>ID</th>
@@ -57,8 +73,8 @@ const AllotmentList = ({ allotments }) => {
           </tr>
         </thead>
         <tbody>
-          {allotmentsState.map(allotment => (
-            <tr key={allotment.id} onClick={() => handleSelectAllotment(allotment)}>
+          {currentAllotments.map(allotment => (
+            <tr key={allotment.id} onClick={() => handleSelectAllotment(allotment)} style={{ cursor: 'pointer' }}>
               <td>{allotment.id}</td>
               <td>{allotment.project}</td>
               <td>{allotment.building}</td>
@@ -68,27 +84,30 @@ const AllotmentList = ({ allotments }) => {
               <td>{allotment.parkingType}</td>
               <td>{allotment.activeStatus}</td>
               <td>
-                <button className="btn btn-primary" onClick={() => handleSelectAllotment(allotment)}>View Payments</button>
-                <button className="btn btn-danger" onClick={() => handleDeleteAllotment(allotment.id)}>Delete</button>
+                <button className="btn btn-info btn-sm me-2" onClick={() => handleSelectAllotment(allotment)}>
+                  <FontAwesomeIcon icon={faEye} />
+                </button>
+                <button className="btn btn-danger btn-sm" onClick={() => handleDeleteAllotment(allotment.id)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <div>
-        <h3>Add New Allotment</h3>
-        <input type="text" placeholder="Project" value={newAllotment.project} onChange={(e) => setNewAllotment({ ...newAllotment, project: e.target.value })} />
-        <input type="text" placeholder="Building" value={newAllotment.building} onChange={(e) => setNewAllotment({ ...newAllotment, building: e.target.value })} />
-        <input type="text" placeholder="Door Number" value={newAllotment.doorNumber} onChange={(e) => setNewAllotment({ ...newAllotment, doorNumber: e.target.value })} />
-        <input type="text" placeholder="Carpet Area" value={newAllotment.carpetArea} onChange={(e) => setNewAllotment({ ...newAllotment, carpetArea: e.target.value })} />
-        <input type="text" placeholder="Sellable Area" value={newAllotment.sellableArea} onChange={(e) => setNewAllotment({ ...newAllotment, sellableArea: e.target.value })} />
-        <input type="text" placeholder="Parking Type" value={newAllotment.parkingType} onChange={(e) => setNewAllotment({ ...newAllotment, parkingType: e.target.value })} />
-        <input type="text" placeholder="Active Status" value={newAllotment.activeStatus} onChange={(e) => setNewAllotment({ ...newAllotment, activeStatus: e.target.value })} />
-        <button className="btn btn-success" onClick={handleAddAllotment}>Add Allotment</button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
 
-      {selectedAllotment && <PaymentList payments={selectedAllotment.payments} />}
+      {selectedAllotment && (
+        <div className="mt-4">
+          <h3 className="mb-3">Payments for Allotment ID: {selectedAllotment.id}</h3>
+          <PaymentList payments={selectedAllotment.payments} />
+        </div>
+      )}
     </div>
   );
 };

@@ -77,6 +77,240 @@
             ]
           }
         ]
+      },
+      {
+        "id": 3,
+        "firstName": "Robert",
+        "middleName": "C.",
+        "lastName": "Johnson",
+        "address": "789 Pine St",
+        "pincode": "789456",
+        "mobile": "345-678-9012",
+        "landline": "234-567-8901",
+        "email": "robert.johnson@example.com",
+        "allotments": [
+          {
+            "id": 103,
+            "project": "Project C",
+            "building": "B3",
+            "doorNumber": "103",
+            "carpetArea": "550 sqft",
+            "sellableArea": "650 sqft",
+            "parkingType": "Covered",
+            "activeStatus": "Y",
+            "payments": [
+              {
+                "id": 1003,
+                "mode": "Credit Card",
+                "amount": "15000",
+                "received": true,
+                "date": "2024-03-20",
+                "valueDate": "2024-03-22",
+                "realized": true,
+                "bank": "Bank C",
+                "branch": "Branch C",
+                "instrumentNumber": "INST003",
+                "receipt": "REC003",
+                "remark": "Final payment"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "firstName": "Emily",
+        "middleName": "D.",
+        "lastName": "Williams",
+        "address": "101 Birch St",
+        "pincode": "987654",
+        "mobile": "456-789-0123",
+        "landline": "345-678-9012",
+        "email": "emily.williams@example.com",
+        "allotments": [
+          {
+            "id": 104,
+            "project": "Project D",
+            "building": "B4",
+            "doorNumber": "104",
+            "carpetArea": "600 sqft",
+            "sellableArea": "700 sqft",
+            "parkingType": "Open",
+            "activeStatus": "N",
+            "payments": [
+              {
+                "id": 1004,
+                "mode": "Bank Transfer",
+                "amount": "25000",
+                "received": false,
+                "date": "2024-04-25",
+                "valueDate": "2024-04-27",
+                "realized": false,
+                "bank": "Bank D",
+                "branch": "Branch D",
+                "instrumentNumber": "INST004",
+                "receipt": "REC004",
+                "remark": "Awaiting clearance"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "firstName": "Michael",
+        "middleName": "E.",
+        "lastName": "Brown",
+        "address": "202 Maple St",
+        "pincode": "654789",
+        "mobile": "567-890-1234",
+        "landline": "456-789-0123",
+        "email": "michael.brown@example.com",
+        "allotments": [
+          {
+            "id": 105,
+            "project": "Project E",
+            "building": "B5",
+            "doorNumber": "105",
+            "carpetArea": "800 sqft",
+            "sellableArea": "900 sqft",
+            "parkingType": "Covered",
+            "activeStatus": "Y",
+            "payments": [
+              {
+                "id": 1005,
+                "mode": "Online Payment",
+                "amount": "30000",
+                "received": true,
+                "date": "2024-05-30",
+                "valueDate": "2024-06-01",
+                "realized": true,
+                "bank": "Bank E",
+                "branch": "Branch E",
+                "instrumentNumber": "INST005",
+                "receipt": "REC005",
+                "remark": "Payment complete"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "firstName": "Sophia",
+        "middleName": "F.",
+        "lastName": "Davis",
+        "address": "303 Cedar St",
+        "pincode": "123987",
+        "mobile": "678-901-2345",
+        "landline": "567-890-1234",
+        "email": "sophia.davis@example.com",
+        "allotments": [
+          {
+            "id": 106,
+            "project": "Project F",
+            "building": "B6",
+            "doorNumber": "106",
+            "carpetArea": "750 sqft",
+            "sellableArea": "850 sqft",
+            "parkingType": "Open",
+            "activeStatus": "N",
+            "payments": [
+              {
+                "id": 1006,
+                "mode": "Cash",
+                "amount": "35000",
+                "received": false,
+                "date": "2024-07-05",
+                "valueDate": "2024-07-07",
+                "realized": false,
+                "bank": "Bank F",
+                "branch": "Branch F",
+                "instrumentNumber": "INST006",
+                "receipt": "REC006",
+                "remark": "Awaiting confirmation"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "firstName": "Liam",
+        "middleName": "G.",
+        "lastName": "Miller",
+        "address": "404 Elm St",
+        "pincode": "987123",
+        "mobile": "789-012-3456",
+        "landline": "678-901-2345",
+        "email": "liam.miller@example.com",
+        "allotments": [
+          {
+            "id": 107,
+            "project": "Project G",
+            "building": "B7",
+            "doorNumber": "107",
+            "carpetArea": "900 sqft",
+            "sellableArea": "1000 sqft",
+            "parkingType": "Covered",
+            "activeStatus": "Y",
+            "payments": [
+              {
+                "id": 1007,
+                "mode": "Cheque",
+                "amount": "40000",
+                "received": true,
+                "date": "2024-08-10",
+                "valueDate": "2024-08-12",
+                "realized": true,
+                "bank": "Bank G",
+                "branch": "Branch G",
+                "instrumentNumber": "INST007",
+                "receipt": "REC007",
+                "remark": "Cleared"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "firstName": "Isabella",
+        "middleName": "H.",
+        "lastName": "Martinez",
+        "address": "505 Spruce St",
+        "pincode": "321654",
+        "mobile": "890-123-4567",
+        "landline": "789-012-3456",
+        "email": "isabella.martinez@example.com",
+        "allotments": [
+          {
+            "id": 108,
+            "project": "Project H",
+            "building": "B8",
+            "doorNumber": "108",
+            "carpetArea": "1000 sqft",
+            "sellableArea": "1100 sqft",
+            "parkingType": "Open",
+            "activeStatus": "N",
+            "payments": [
+              {
+                "id": 1008,
+                "mode": "Bank Transfer",
+                "amount": "45000",
+                "received": false,
+                "date": "2024-09-15",
+                "valueDate": "2024-09-17",
+                "realized": false,
+                "bank": "Bank H",
+                "branch": "Branch H",
+                "instrumentNumber": "INST008",
+                "receipt": "REC008",
+                "remark": "Pending clearance"
+              }
+            ]
+          }
+        ]
       }
     ]
   }

@@ -1,26 +1,36 @@
 import React from 'react';
-import { Pagination } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
-function PaginationComponent({ itemsPerPage, totalItems, paginate, currentPage }) {
-  const pageNumbers = [];
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  const pages = [];
 
-  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
-    pageNumbers.push(i);
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(i);
   }
 
   return (
-    <Pagination>
-      {pageNumbers.map((number) => (
-        <Pagination.Item
-          key={number}
-          active={number === currentPage}
-          onClick={() => paginate(number)}
-        >
-          {number}
-        </Pagination.Item>
-      ))}
-    </Pagination>
+    <nav aria-label="Page navigation">
+      <ul className="pagination">
+        <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+          <button className="page-link" onClick={() => onPageChange(currentPage - 1)}>
+            Previous
+          </button>
+        </li>
+        {pages.map(page => (
+          <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`}>
+            <button className="page-link" onClick={() => onPageChange(page)}>
+              {page}
+            </button>
+          </li>
+        ))}
+        <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+          <button className="page-link" onClick={() => onPageChange(currentPage + 1)}>
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
   );
-}
+};
 
-export default PaginationComponent;
+export default Pagination;
