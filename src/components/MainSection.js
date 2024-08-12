@@ -1,7 +1,7 @@
 import React from 'react';
 import MyCustomers from './MyCustomers';
-import Allotments from './Allotments';
-import PaymentHistory from './PaymentHistory';
+// import Allotments from './Allotments';
+// import PaymentHistory from './PaymentHistory';
 import { Container, Row, Col } from 'react-bootstrap';
 
 function MainSection() {
@@ -14,12 +14,12 @@ function MainSection() {
       </Row>
       <Row className="mb-4">
         <Col>
-          <Allotments />
+          {/* <Allotments /> */}
         </Col>
       </Row>
       <Row>
         <Col>
-          <PaymentHistory />
+          {/* <PaymentHistory /> */}
         </Col>
       </Row>
     </Container>

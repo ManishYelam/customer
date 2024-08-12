@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const CustomerForm = ({ onAddCustomer, onUpdateCustomer, editingCustomer, setEditingCustomer }) => {
   const [customer, setCustomer] = useState({
+    id: '',
     firstName: '',
     middleName: '',
     lastName: '',
@@ -15,25 +16,15 @@ const CustomerForm = ({ onAddCustomer, onUpdateCustomer, editingCustomer, setEdi
   useEffect(() => {
     if (editingCustomer) {
       setCustomer(editingCustomer);
-    } else {
-      setCustomer({
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        address: '',
-        pincode: '',
-        mobile: '',
-        landline: '',
-        email: ''
-      });
     }
   }, [editingCustomer]);
 
   const handleChange = (e) => {
-    setCustomer({
-      ...customer,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setCustomer(prevCustomer => ({
+      ...prevCustomer,
+      [name]: value
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -41,9 +32,11 @@ const CustomerForm = ({ onAddCustomer, onUpdateCustomer, editingCustomer, setEdi
     if (editingCustomer) {
       onUpdateCustomer(customer);
     } else {
-      onAddCustomer({ ...customer, id: Date.now() });
+      const newCustomer = { ...customer, id: Date.now() }; // Generate a unique ID
+      onAddCustomer(newCustomer);
     }
     setCustomer({
+      id: '',
       firstName: '',
       middleName: '',
       lastName: '',
@@ -57,67 +50,115 @@ const CustomerForm = ({ onAddCustomer, onUpdateCustomer, editingCustomer, setEdi
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="firstName"
-        value={customer.firstName}
-        onChange={handleChange}
-        placeholder="First Name"
-      />
-      <input
-        type="text"
-        name="middleName"
-        value={customer.middleName}
-        onChange={handleChange}
-        placeholder="Middle Name"
-      />
-      <input
-        type="text"
-        name="lastName"
-        value={customer.lastName}
-        onChange={handleChange}
-        placeholder="Last Name"
-      />
-      <input
-        type="text"
-        name="address"
-        value={customer.address}
-        onChange={handleChange}
-        placeholder="Address"
-      />
-      <input
-        type="text"
-        name="pincode"
-        value={customer.pincode}
-        onChange={handleChange}
-        placeholder="Pincode"
-      />
-      <input
-        type="text"
-        name="mobile"
-        value={customer.mobile}
-        onChange={handleChange}
-        placeholder="Mobile"
-      />
-      <input
-        type="text"
-        name="landline"
-        value={customer.landline}
-        onChange={handleChange}
-        placeholder="Landline"
-      />
-      <input
-        type="email"
-        name="email"
-        value={customer.email}
-        onChange={handleChange}
-        placeholder="Email"
-      />
-      <button type="submit">
-        {editingCustomer ? 'Update Customer' : 'Add Customer'}
-      </button>
-    </form>
+    <div className="container mt-3">
+      <h3>{editingCustomer ? 'Edit Customer' : 'Add Customer'}</h3>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="firstName">First Name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="firstName"
+            name="firstName"
+            value={customer.firstName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="middleName">Middle Name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="middleName"
+            name="middleName"
+            value={customer.middleName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="lastName"
+            name="lastName"
+            value={customer.lastName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address">Address</label>
+          <input
+            type="text"
+            className="form-control"
+            id="address"
+            name="address"
+            value={customer.address}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="pincode">Pincode</label>
+          <input
+            type="text"
+            className="form-control"
+            id="pincode"
+            name="pincode"
+            value={customer.pincode}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="mobile">Mobile</label>
+          <input
+            type="text"
+            className="form-control"
+            id="mobile"
+            name="mobile"
+            value={customer.mobile}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="landline">Landline</label>
+          <input
+            type="text"
+            className="form-control"
+            id="landline"
+            name="landline"
+            value={customer.landline}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            name="email"
+            value={customer.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          {editingCustomer ? 'Update' : 'Create'}
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary ml-2"
+          onClick={() => setEditingCustomer(null)}
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
   );
 };
 

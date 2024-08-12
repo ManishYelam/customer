@@ -8,13 +8,14 @@ const MyCustomers = () => {
   const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [editingCustomer, setEditingCustomer] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     fetch('/data/mockData.json')
       .then(response => response.json())
       .then(data => {
         setCustomers(data.customers);
-        setFilteredCustomers(data.customers);
+        setFilteredCustomers(data.customers); // Initialize filteredCustomers
       })
       .catch(error => console.error('Error fetching customers:', error));
   }, []);
@@ -25,49 +26,60 @@ const MyCustomers = () => {
 
   const handleAddCustomer = (newCustomer) => {
     setCustomers([...customers, newCustomer]);
-    setFilteredCustomers([...customers, newCustomer]);
+    setFilteredCustomers([...customers, newCustomer]); // Update filteredCustomers
+    setShowForm(false);
   };
 
   const handleUpdateCustomer = (updatedCustomer) => {
-    const updatedCustomers = customers.map(customer => 
+    const updatedCustomers = customers.map(customer =>
       customer.id === updatedCustomer.id ? updatedCustomer : customer
     );
     setCustomers(updatedCustomers);
-    setFilteredCustomers(updatedCustomers);
+    setFilteredCustomers(updatedCustomers); // Update filteredCustomers
     setEditingCustomer(null);
   };
 
   const handleDeleteCustomer = (id) => {
     const updatedCustomers = customers.filter(customer => customer.id !== id);
     setCustomers(updatedCustomers);
-    setFilteredCustomers(updatedCustomers);
+    setFilteredCustomers(updatedCustomers); // Update filteredCustomers
+  };
+
+  const handleCreateClick = () => {
+    setEditingCustomer(null);
+    setShowForm(true);
   };
 
   const handleSearch = (query) => {
-    const lowercasedQuery = query.toLowerCase();
-    const filtered = customers.filter(customer =>
-      customer.firstName.toLowerCase().includes(lowercasedQuery) ||
-      customer.middleName.toLowerCase().includes(lowercasedQuery) ||
-      customer.lastName.toLowerCase().includes(lowercasedQuery) ||
-      customer.address.toLowerCase().includes(lowercasedQuery) ||
-      customer.pincode.includes(lowercasedQuery) ||
-      customer.mobile.includes(lowercasedQuery) ||
-      customer.landline.includes(lowercasedQuery) ||
-      customer.email.toLowerCase().includes(lowercasedQuery)
-    );
-    setFilteredCustomers(filtered);
+    if (query) {
+      const lowercasedQuery = query.toLowerCase();
+      const filtered = customers.filter(customer =>
+        customer.firstName.toLowerCase().includes(lowercasedQuery) ||
+        customer.middleName.toLowerCase().includes(lowercasedQuery) ||
+        customer.lastName.toLowerCase().includes(lowercasedQuery) ||
+        customer.email.toLowerCase().includes(lowercasedQuery)
+      );
+      setFilteredCustomers(filtered);
+    } else {
+      setFilteredCustomers(customers); // Show all customers if search is cleared
+    }
   };
 
   return (
     <div>
       <h2>Customers</h2>
-      <CustomerSearch customers={customers} onSearch={handleSearch} />
-      <CustomerForm 
-        onAddCustomer={handleAddCustomer}
-        onUpdateCustomer={handleUpdateCustomer}
-        editingCustomer={editingCustomer}
-        setEditingCustomer={setEditingCustomer}
-      />
+      <button className="btn btn-primary mb-3" onClick={handleCreateClick}>
+        Create Customer
+      </button>
+      {showForm && (
+        <CustomerForm 
+          onAddCustomer={handleAddCustomer}
+          onUpdateCustomer={handleUpdateCustomer}
+          editingCustomer={editingCustomer}
+          setEditingCustomer={setEditingCustomer}
+        />
+      )}
+      <CustomerSearch onSearch={handleSearch} />
       <table className="table">
         <thead>
           <tr>
@@ -97,7 +109,7 @@ const MyCustomers = () => {
               <td>{customer.email}</td>
               <td>
                 <button className="btn btn-primary" onClick={() => handleSelectCustomer(customer)}>View Allotments</button>
-                <button className="btn btn-warning" onClick={() => setEditingCustomer(customer)}>Edit</button>
+                <button className="btn btn-warning" onClick={() => { setEditingCustomer(customer); setShowForm(true); }}>Edit</button>
                 <button className="btn btn-danger" onClick={() => handleDeleteCustomer(customer.id)}>Delete</button>
               </td>
             </tr>
