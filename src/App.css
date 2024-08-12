@@ -1,0 +1,8 @@
+.App {
+  display: flex;
+  height: 100vh;
+}
+
+h3 {
+  margin-bottom: 20px;
+}

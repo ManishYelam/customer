@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "firstName": "John",
+    "middleName": "A.",
+    "lastName": "Doe",
+    "address": "123 Main St",
+    "pincode": "123456",
+    "mobile": "123-456-7890",
+    "landline": "098-765-4321",
+    "email": "john.doe@example.com"
+  },
+  {
+    "id": 2,
+    "firstName": "Jane",
+    "middleName": "B.",
+    "lastName": "Smith",
+    "address": "456 Oak St",
+    "pincode": "654321",
+    "mobile": "234-567-8901",
+    "landline": "123-456-7890",
+    "email": "jane.smith@example.com"
+  },
+  {
+    "id": 3,
+    "firstName": "Alice",
+    "middleName": "C.",
+    "lastName": "Johnson",
+    "address": "789 Pine St",
+    "pincode": "789012",
+    "mobile": "345-678-9012",
+    "landline": "234-567-8901",
+    "email": "alice.johnson@example.com"
+  },
+  {
+    "id": 4,
+    "firstName": "Bob",
+    "middleName": "D.",
+    "lastName": "Williams",
+    "address": "321 Maple St",
+    "pincode": "890123",
+    "mobile": "456-789-0123",
+    "landline": "345-678-9012",
+    "email": "bob.williams@example.com"
+  },
+  {
+    "id": 5,
+    "firstName": "Charlie",
+    "middleName": "E.",
+    "lastName": "Brown",
+    "address": "654 Cedar St",
+    "pincode": "901234",
+    "mobile": "567-890-1234",
+    "landline": "456-789-0123",
+    "email": "charlie.brown@example.com"
+  },
+  {
+    "id": 6,
+    "firstName": "David",
+    "middleName": "F.",
+    "lastName": "Davis",
+    "address": "987 Birch St",
+    "pincode": "012345",
+    "mobile": "678-901-2345",
+    "landline": "567-890-1234",
+    "email": "david.davis@example.com"
+  },
+  {
+    "id": 7,
+    "firstName": "Eve",
+    "middleName": "G.",
+    "lastName": "Miller",
+    "address": "159 Spruce St",
+    "pincode": "123456",
+    "mobile": "789-012-3456",
+    "landline": "678-901-2345",
+    "email": "eve.miller@example.com"
+  },
+  {
+    "id": 8,
+    "firstName": "Frank",
+    "middleName": "H.",
+    "lastName": "Garcia",
+    "address": "753 Elm St",
+    "pincode": "234567",
+    "mobile": "890-123-4567",
+    "landline": "789-012-3456",
+    "email": "frank.garcia@example.com"
+  },
+  {
+    "id": 9,
+    "firstName": "Grace",
+    "middleName": "I.",
+    "lastName": "Martinez",
+    "address": "357 Fir St",
+    "pincode": "345678",
+    "mobile": "901-234-5678",
+    "landline": "890-123-4567",
+    "email": "grace.martinez@example.com"
+  },
+  {
+    "id": 10,
+    "firstName": "Hank",
+    "middleName": "J.",
+    "lastName": "Rodriguez",
+    "address": "951 Oak St",
+    "pincode": "456789",
+    "mobile": "012-345-6789",
+    "landline": "901-234-5678",
+    "email": "hank.rodriguez@example.com"
+  }
+]

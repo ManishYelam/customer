@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "project": "Project A",
+    "building": "B1",
+    "doorNumber": "101",
+    "carpetArea": "500 sqft",
+    "sellableArea": "600 sqft",
+    "parkingType": "Covered",
+    "activeStatus": "Y"
+  },
+  {
+    "id": 2,
+    "project": "Project B",
+    "building": "B2",
+    "doorNumber": "102",
+    "carpetArea": "550 sqft",
+    "sellableArea": "650 sqft",
+    "parkingType": "Open",
+    "activeStatus": "Y"
+  },
+  {
+    "id": 3,
+    "project": "Project C",
+    "building": "B3",
+    "doorNumber": "103",
+    "carpetArea": "600 sqft",
+    "sellableArea": "700 sqft",
+    "parkingType": "Covered",
+    "activeStatus": "N"
+  },
+  {
+    "id": 4,
+    "project": "Project D",
+    "building": "B4",
+    "doorNumber": "104",
+    "carpetArea": "450 sqft",
+    "sellableArea": "550 sqft",
+    "parkingType": "Open",
+    "activeStatus": "Y"
+  },
+  {
+    "id": 5,
+    "project": "Project E",
+    "building": "B5",
+    "doorNumber": "105",
+    "carpetArea": "700 sqft",
+    "sellableArea": "800 sqft",
+    "parkingType": "Covered",
+    "activeStatus": "N"
+  },
+  {
+    "id": 6,
+    "project": "Project F",
+    "building": "B6",
+    "doorNumber": "106",
+    "carpetArea": "500 sqft",
+    "sellableArea": "600 sqft",
+    "parkingType": "Open",
+    "activeStatus": "Y"
+  },
+  {
+    "id": 7,
+    "project": "Project G",
+    "building": "B7",
+    "doorNumber": "107",
+    "carpetArea": "550 sqft",
+    "sellableArea": "650 sqft",
+    "parkingType": "Covered",
+    "activeStatus": "Y"
+  },
+  {
+    "id": 8,
+    "project": "Project H",
+    "building": "B8",
+    "doorNumber": "108",
+    "carpetArea": "600 sqft",
+    "sellableArea": "700 sqft",
+    "parkingType": "Open",
+    "activeStatus": "N"
+  },
+  {
+    "id": 9,
+    "project": "Project I",
+    "building": "B9",
+    "doorNumber": "109",
+    "carpetArea": "650 sqft",
+    "sellableArea": "750 sqft",
+    "parkingType": "Covered",
+    "activeStatus": "Y"
+  },
+  {
+    "id": 10,
+    "project": "Project J",
+    "building": "B10",
+    "doorNumber": "110",
+    "carpetArea": "700 sqft",
+    "sellableArea": "800 sqft",
+    "parkingType": "Open",
+    "activeStatus": "Y"
+  }
+]
