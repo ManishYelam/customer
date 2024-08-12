@@ -84,9 +84,6 @@ const AllotmentList = ({ allotments }) => {
               <td>{allotment.parkingType}</td>
               <td>{allotment.activeStatus}</td>
               <td>
-                <button className="btn btn-info btn-sm me-2" onClick={() => handleSelectAllotment(allotment)}>
-                  <FontAwesomeIcon icon={faEye} />
-                </button>
                 <button className="btn btn-danger btn-sm" onClick={() => handleDeleteAllotment(allotment.id)}>
                   <FontAwesomeIcon icon={faTrash} />
                 </button>

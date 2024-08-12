@@ -115,7 +115,11 @@ const MyCustomers = () => {
         </thead>
         <tbody>
           {currentCustomers.map(customer => (
-            <tr key={customer.id}>
+            <tr 
+              key={customer.id} 
+              onClick={() => handleSelectCustomer(customer)} 
+              style={{ cursor: 'pointer' }}
+            >
               <td>{customer.id}</td>
               <td>{customer.firstName}</td>
               <td>{customer.middleName}</td>
@@ -126,16 +130,12 @@ const MyCustomers = () => {
               <td>{customer.landline}</td>
               <td>{customer.email}</td>
               <td>
-              <button className="btn btn-info btn-sm me-2" onClick={() => handleSelectCustomer(customer)}>
-              <i className="fas fa-eye"></i>
-              </button>
-              <button className="btn btn-warning btn-sm me-2" onClick={() => { setEditingCustomer(customer); setShowForm(true); }}>
+                <button className="btn btn-warning btn-sm me-2" onClick={() => { setEditingCustomer(customer); setShowForm(true); }}>
                   <i className="fas fa-edit"></i>
-              </button>
-              <button className="btn btn-danger btn-sm" onClick={() => handleDeleteCustomer(customer.id)}>
+                </button>
+                <button className="btn btn-danger btn-sm" onClick={() => handleDeleteCustomer(customer.id)}>
                   <i className="fas fa-trash"></i>
-              </button>
-
+                </button>
               </td>
             </tr>
           ))}
