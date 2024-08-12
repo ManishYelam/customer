@@ -1,31 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { Table } from 'react-bootstrap';
-import PaginationComponent from './PaginationComponent';
+import AllotmentList from './AllotmentList';
+import CustomerForm from './CustomerForm';
 
-function MyCustomers() {
+const MyCustomers = () => {
   const [customers, setCustomers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);  // Set items per page
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [editingCustomer, setEditingCustomer] = useState(null);
 
   useEffect(() => {
-    fetch('/data/customers.json')
+    fetch('/data/mockData.json')
       .then(response => response.json())
-      .then(data => setCustomers(data))
+      .then(data => setCustomers(data.customers))
       .catch(error => console.error('Error fetching customers:', error));
   }, []);
 
-  // Get current customers
-  const indexOfLastCustomer = currentPage * itemsPerPage;
-  const indexOfFirstCustomer = indexOfLastCustomer - itemsPerPage;
-  const currentCustomers = customers.slice(indexOfFirstCustomer, indexOfLastCustomer);
+  const handleSelectCustomer = (customer) => {
+    setSelectedCustomer(customer);
+  };
 
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const handleAddCustomer = (newCustomer) => {
+    setCustomers([...customers, newCustomer]);
+  };
+
+  const handleUpdateCustomer = (updatedCustomer) => {
+    setCustomers(customers.map(customer => 
+      customer.id === updatedCustomer.id ? updatedCustomer : customer
+    ));
+    setEditingCustomer(null);
+  };
+
+  const handleDeleteCustomer = (id) => {
+    setCustomers(customers.filter(customer => customer.id !== id));
+  };
 
   return (
     <div>
-      <h3>My Customers</h3>
-      <Table striped bordered hover>
+      <h2>Customers</h2>
+      <CustomerForm 
+        onAddCustomer={handleAddCustomer}
+        onUpdateCustomer={handleUpdateCustomer}
+        editingCustomer={editingCustomer}
+        setEditingCustomer={setEditingCustomer}
+      />
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -37,10 +54,11 @@ function MyCustomers() {
             <th>Mobile</th>
             <th>Landline</th>
             <th>Email</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {currentCustomers.map(customer => (
+          {customers.map(customer => (
             <tr key={customer.id}>
               <td>{customer.id}</td>
               <td>{customer.firstName}</td>
@@ -51,18 +69,18 @@ function MyCustomers() {
               <td>{customer.mobile}</td>
               <td>{customer.landline}</td>
               <td>{customer.email}</td>
+              <td>
+                <button className="btn btn-primary" onClick={() => handleSelectCustomer(customer)}>View Allotments</button>
+                <button className="btn btn-warning" onClick={() => setEditingCustomer(customer)}>Edit</button>
+                <button className="btn btn-danger" onClick={() => handleDeleteCustomer(customer.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
-      </Table>
-      <PaginationComponent
-        itemsPerPage={itemsPerPage}
-        totalItems={customers.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
+      </table>
+      {selectedCustomer && <AllotmentList allotments={selectedCustomer.allotments} />}
     </div>
   );
-}
+};
 
 export default MyCustomers;

@@ -1,0 +1,83 @@
+{
+    "customers": [
+      {
+        "id": 1,
+        "firstName": "John",
+        "middleName": "A.",
+        "lastName": "Doe",
+        "address": "123 Main St",
+        "pincode": "123456",
+        "mobile": "123-456-7890",
+        "landline": "098-765-4321",
+        "email": "john.doe@example.com",
+        "allotments": [
+          {
+            "id": 101,
+            "project": "Project A",
+            "building": "B1",
+            "doorNumber": "101",
+            "carpetArea": "500 sqft",
+            "sellableArea": "600 sqft",
+            "parkingType": "Covered",
+            "activeStatus": "Y",
+            "payments": [
+              {
+                "id": 1001,
+                "mode": "Cash",
+                "amount": "10000",
+                "received": true,
+                "date": "2024-01-10",
+                "valueDate": "2024-01-12",
+                "realized": true,
+                "bank": "Bank A",
+                "branch": "Branch A",
+                "instrumentNumber": "INST001",
+                "receipt": "REC001",
+                "remark": "Initial payment"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "firstName": "Jane",
+        "middleName": "B.",
+        "lastName": "Smith",
+        "address": "456 Oak St",
+        "pincode": "654321",
+        "mobile": "234-567-8901",
+        "landline": "123-456-7890",
+        "email": "jane.smith@example.com",
+        "allotments": [
+          {
+            "id": 102,
+            "project": "Project B",
+            "building": "B2",
+            "doorNumber": "102",
+            "carpetArea": "700 sqft",
+            "sellableArea": "800 sqft",
+            "parkingType": "Open",
+            "activeStatus": "N",
+            "payments": [
+              {
+                "id": 1002,
+                "mode": "Cheque",
+                "amount": "20000",
+                "received": false,
+                "date": "2024-02-15",
+                "valueDate": "2024-02-17",
+                "realized": false,
+                "bank": "Bank B",
+                "branch": "Branch B",
+                "instrumentNumber": "INST002",
+                "receipt": "REC002",
+                "remark": "Pending"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
