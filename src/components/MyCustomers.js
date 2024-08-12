@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import AllotmentList from './AllotmentList';
 import CustomerForm from './CustomerForm';
+import CustomerSearch from './CustomerSearch';
 
 const MyCustomers = () => {
   const [customers, setCustomers] = useState([]);
+  const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [editingCustomer, setEditingCustomer] = useState(null);
 
   useEffect(() => {
     fetch('/data/mockData.json')
       .then(response => response.json())
-      .then(data => setCustomers(data.customers))
+      .then(data => {
+        setCustomers(data.customers);
+        setFilteredCustomers(data.customers);
+      })
       .catch(error => console.error('Error fetching customers:', error));
   }, []);
 
@@ -20,22 +25,43 @@ const MyCustomers = () => {
 
   const handleAddCustomer = (newCustomer) => {
     setCustomers([...customers, newCustomer]);
+    setFilteredCustomers([...customers, newCustomer]);
   };
 
   const handleUpdateCustomer = (updatedCustomer) => {
-    setCustomers(customers.map(customer => 
+    const updatedCustomers = customers.map(customer => 
       customer.id === updatedCustomer.id ? updatedCustomer : customer
-    ));
+    );
+    setCustomers(updatedCustomers);
+    setFilteredCustomers(updatedCustomers);
     setEditingCustomer(null);
   };
 
   const handleDeleteCustomer = (id) => {
-    setCustomers(customers.filter(customer => customer.id !== id));
+    const updatedCustomers = customers.filter(customer => customer.id !== id);
+    setCustomers(updatedCustomers);
+    setFilteredCustomers(updatedCustomers);
+  };
+
+  const handleSearch = (query) => {
+    const lowercasedQuery = query.toLowerCase();
+    const filtered = customers.filter(customer =>
+      customer.firstName.toLowerCase().includes(lowercasedQuery) ||
+      customer.middleName.toLowerCase().includes(lowercasedQuery) ||
+      customer.lastName.toLowerCase().includes(lowercasedQuery) ||
+      customer.address.toLowerCase().includes(lowercasedQuery) ||
+      customer.pincode.includes(lowercasedQuery) ||
+      customer.mobile.includes(lowercasedQuery) ||
+      customer.landline.includes(lowercasedQuery) ||
+      customer.email.toLowerCase().includes(lowercasedQuery)
+    );
+    setFilteredCustomers(filtered);
   };
 
   return (
     <div>
       <h2>Customers</h2>
+      <CustomerSearch customers={customers} onSearch={handleSearch} />
       <CustomerForm 
         onAddCustomer={handleAddCustomer}
         onUpdateCustomer={handleUpdateCustomer}
@@ -58,7 +84,7 @@ const MyCustomers = () => {
           </tr>
         </thead>
         <tbody>
-          {customers.map(customer => (
+          {filteredCustomers.map(customer => (
             <tr key={customer.id}>
               <td>{customer.id}</td>
               <td>{customer.firstName}</td>
